@@ -11,8 +11,16 @@ public class ProjectTest extends BaseTest{
     public void projectShouldBeCreated() {
         loginPage.openPage();
         loginPage.login(user,password);
-        String nameProject = faker.name().firstName();
         dashboardPage.createProject(nameProject);
         assertEquals(projectPage.getMessageCreationProject(),"Successfully added the new project.","Project not created.");
+    }
+
+    @Test
+    public void projectShouldBeEdited() {
+        loginPage.openPage();
+        loginPage.login(user,password);
+        dashboardPage.openProject("Ashlyn");
+        editProjectPage.editProject(information);
+        assertEquals(editProjectPage.geMessageSuccessfulSaving(),"Successfully updated the project." ,"The project has not been changed.");
     }
 }
