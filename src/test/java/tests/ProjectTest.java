@@ -12,7 +12,9 @@ public class ProjectTest extends BaseTest{
         loginPage.openPage();
         loginPage.login(user,password);
         dashboardPage.createProject(nameProject);
-        assertEquals(projectPage.getMessageCreationProject(),"Successfully added the new project.","Project not created.");
+        assertEquals(projectPage.getMessageCreationProject(),
+                "Successfully added the new project.",
+                "Project not created.");
     }
 
     @Test
@@ -21,6 +23,17 @@ public class ProjectTest extends BaseTest{
         loginPage.login(user,password);
         dashboardPage.openProject("Ashlyn");
         editProjectPage.editProject(information);
-        assertEquals(editProjectPage.geMessageSuccessfulSaving(),"Successfully updated the project." ,"The project has not been changed.");
+        assertEquals(editProjectPage.geMessageSuccessfulSaving(),
+                "Successfully updated the project." ,
+                "The project has not been changed.");
+    }
+
+    @Test
+    public void projectShouldBeDeleted() {
+        loginPage.openPage();
+        loginPage.login(user,password);
+        projectPage.openPage();
+        projectPage.deleteProject("Ashlyn");
+        assertEquals(projectPage.getMessageDeletionProject(),"Successfully deleted the project.","The project has not been deleted.");
     }
 }

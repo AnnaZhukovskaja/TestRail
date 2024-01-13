@@ -38,7 +38,6 @@ public class BaseTest {
         nameProject ="Testrail " + faker.name().firstName();
         information = faker.company().name();
 
-
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
         projectPage = new ProjectsPage();

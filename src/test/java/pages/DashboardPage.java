@@ -27,4 +27,8 @@ public class DashboardPage extends BasePage {
     public void openProject(String nameProject) {
         $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).click();
     }
+
+    public void deleteProject(String nameProject) {
+        $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).click();
+    }
 }
