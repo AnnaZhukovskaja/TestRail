@@ -1,4 +1,5 @@
 package tests;
 
-public class DashboardTest extends BaseTest{
+
+public class DashboardTest extends BaseTest {
 }

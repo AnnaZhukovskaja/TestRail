@@ -1,10 +1,13 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
+
 import static com.codeborne.selenide.Selenide.$;
 
-public class EditProjectPage extends BasePage{
+@Log4j2
+public class EditProjectPage extends BasePage {
 
-    private final String  EDIT_PROJECT_BUTTON_CSS = "[data-testid=editProjectButton]";
+    private final String EDIT_PROJECT_BUTTON_CSS = "[data-testid=editProjectButton]";
     private final String ANNOUNCEMENT_TEXTAREA_CSS = "[data-testid=addEditProjectAnnouncement]";
     private final String SAFE_PROJECT_BUTTON = "[data-testid=addEditProjectAddButton]";
     private final String MESSAGE_SUCCESSFUL_SAVING_CSS = "[data-testid=messageSuccessDivBox]";
