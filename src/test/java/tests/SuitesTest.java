@@ -40,7 +40,7 @@ public class SuitesTest extends BaseTest{
         open("https://nwcompany.testrail.io/index.php?/suites/view/5&group_by=cases:section_id&group_order=asc&display_deleted_cases=0");
         //suitesPage.addSection(nameSection);
         suitesPage.deleteSection("Section 266");
-        assertEquals(suitesPage.findSectionNameWithBooleanRezult("Section 266"),"The section has not been deleted.");
+        assertEquals(suitesPage.getMessage(),"No test cases found.","The section has not been deleted.");
 
     }
 
@@ -48,12 +48,22 @@ public class SuitesTest extends BaseTest{
     public void testCaseShouldBeAdded() {
         loginPage.openPage();
         loginPage.login(user, password);
-
-        //assertEquals(,"Successfully added the new test case.","The test-case has not been added." );
+        dashboardPage.createProject(nameProject);
+        dashboardPage.openPage();
+        dashboardPage.openProject(nameProject);
+        suitesPage.addSection(nameSection);
+        suitesPage.addTestCase(nameTestCase);
+        assertTrue(suitesPage.getMessageSuccessfulAddedTestCase().contains("Successfully added the new test case."),
+                "The test-case has not been added." );
     }
 
     @Test
-    public void testCaseShouldBeEdited() {}
+    public void testCaseShouldBeEdited() {
+
+        assertEquals("",
+                "Successfully updated the test cases.",
+                "The test-case has not been added." );
+    }
 
     @Test
     public void testCaseShouldBeDeleted() {}

@@ -16,6 +16,16 @@ public class SuitesPage extends BasePage {
     private final String ADD_SECTION_BUTTON_CSS = "[data-testid=addSectionInline]";
     private final String TEST_CASES_MENU_BUTTON_ID = "navigation-suites";
     private final String ADD_NAME_SECTION_CSS = "[data-testid=editSectionName]";
+    private final String MESSAGE_NOT_TEST_CASES_CSS = "[data-testid=sectionCaseGridGroups]";
+    private final String MESSAGE_SUCCESSFUL_ADDED_TEST_CASE = "[data-testid=messageSuccessDivBox]";
+    private final String ADD_TEST_CASE_BUTTON_CSS = "[data-testid=sidebarCasesAdd]";
+    private final String ADD_TEST_CASE_SAVE_CSS = "[data-testid=addTestCaseButton]";
+    private final String TEST_CASE_TITLE_CSS = "[data-testid=addEditCaseTitle]";
+    private final String TEST_CASE_ESTIMATE_CSS = "[data-testid=editCaseEstimate]";
+    private final String TEST_CASE_REFERENCES_CSS = "[data-testid=editCaseRefs]";
+    private final String TEST_CASE_PRECONTITIONS_CSS = "#custom_preconds_display";
+    private final String TEST_CASE_STEP_CSS = "#custom_steps_display";
+    private final String TEST_CASE_EXPECTED_RESULT_CSS = "#custom_expected_display";
 
 
     public void addSection(String nameSection) {
@@ -25,7 +35,7 @@ public class SuitesPage extends BasePage {
         $(ADD_NAME_SECTION_CSS).pressEnter();
     }
 
-    public String findSectionNameWithBooleanRezult(String nameSection) {
+    public String findSectionNameWithBooleanResult(String nameSection) {
 
 //        try {
 //            $$(NAMES_SECTIONS_CSS).findBy(text(nameSection));
@@ -52,12 +62,30 @@ public class SuitesPage extends BasePage {
         //executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
         //$$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).$(".icon-small-delete").click();
         executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].click();");
+        $("[data-testid=deleteCheckBoxTestId]").pressEnter().click();
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
         //executeJavaScript("document.getElementsByClassName('dialog-confirm')[0].setAttribute('displayed', 'true');");
-        //$(".dialog-confirm").pressEnter();
-        //$(".button-ok-disabled").click();
         executeJavaScript("document.getElementsByClassName('button-ok')[17].click();");
+    }
 
+    public String getMessage() {
+        return $(MESSAGE_NOT_TEST_CASES_CSS).getText();
+    }
+
+    public void addTestCase(String nameProject) {
+        $(By.id(TEST_CASES_MENU_BUTTON_ID)).click();
+        $(ADD_TEST_CASE_BUTTON_CSS).click();
+        $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
+        $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
+        $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
+        $(TEST_CASE_PRECONTITIONS_CSS).sendKeys(testCase.getPreconditions());
+        $(TEST_CASE_STEP_CSS).sendKeys(testCase.getSteps());
+        $(TEST_CASE_EXPECTED_RESULT_CSS).sendKeys(testCase.getExpectedResult());
+        $(ADD_TEST_CASE_SAVE_CSS).click();
+    }
+
+    public String getMessageSuccessfulAddedTestCase() {
+        return $(MESSAGE_SUCCESSFUL_ADDED_TEST_CASE).getText();
     }
 
 }

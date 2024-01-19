@@ -12,5 +12,7 @@ public class TestCase {
     String estimate;
     String references;
     String preconditions;
+    String steps;
+    String expectedResult;
 
 }

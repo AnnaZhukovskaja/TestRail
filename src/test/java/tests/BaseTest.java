@@ -23,6 +23,7 @@ public class BaseTest {
     Faker faker;
     String nameProject;
     String nameSection;
+    String nameTestCase;
     String information;
 
     @BeforeMethod
@@ -38,9 +39,9 @@ public class BaseTest {
         nameProject = "Testrail " + faker.name().firstName();
         information = faker.company().name();
         nameSection = "Section " + faker.number().numberBetween(1, 1000);
+        nameTestCase = "TestCase" + faker.number().numberBetween(1, 1000);
+
         projectsPage = new ProjectsPage();
-
-
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
         projectPage = new ProjectsPage();

@@ -14,9 +14,6 @@ public class DashboardPage extends BasePage {
     private final String CREATE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String NAMES_PROJECTS_CSS = ".summary-title > a";
     private final String TEST_CASES_MENU_BUTTON_ID = "navigation-suites";
-    private final String ADD_TEST_CASE_BUTTON_CSS = "[.button-add]";
-    private final String ADD_TEST_CASE_SAVE_CSS = "[data-testid=addTestCaseButton]";
-    private final String MESSAGE_SUCCESSFUL_ADDED_TEST_CASE = "[data-testid=messageSuccessDivBox]";
 
     public void openPage() {
         open("dashboard");
@@ -36,19 +33,8 @@ public class DashboardPage extends BasePage {
         $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).click();
     }
 
-    public void addTestCase(String nameProject) {
-        $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).click();
-        $(By.id(TEST_CASES_MENU_BUTTON_ID)).click();
-        $(ADD_TEST_CASE_BUTTON_CSS).click();
-
-        $(ADD_TEST_CASE_SAVE_CSS).click();
-    }
-
     public String getNameOfFirstProject() {
         return $$(NAMES_PROJECTS_CSS).first().getText();
     }
 
-    public String getMessageSuccessfulAddedTestCase() {
-        return $(MESSAGE_SUCCESSFUL_ADDED_TEST_CASE).getText();
-    }
 }
