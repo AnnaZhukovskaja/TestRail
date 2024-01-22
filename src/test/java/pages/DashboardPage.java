@@ -1,7 +1,6 @@
 package pages;
 
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -13,7 +12,6 @@ public class DashboardPage extends BasePage {
     private final String PROJECT_NAME_INPUT_CSS = "[data-testid=addProjectNameInput]";
     private final String CREATE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String NAMES_PROJECTS_CSS = ".summary-title > a";
-    private final String TEST_CASES_MENU_BUTTON_ID = "navigation-suites";
 
     public void openPage() {
         open("dashboard");
@@ -36,5 +34,4 @@ public class DashboardPage extends BasePage {
     public String getNameOfFirstProject() {
         return $$(NAMES_PROJECTS_CSS).first().getText();
     }
-
 }

@@ -29,7 +29,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
         Configuration.browser = "chrome";
-        Configuration.headless = false;
+        Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.baseUrl = "https://nwcompany.testrail.io/index.php?/";
         open();
@@ -52,7 +52,6 @@ public class BaseTest {
         System.out.println(System.getenv(user));
         password = System.getProperty("password", PropertyReader.getProperty("tr.password"));
         System.out.println(System.getenv(password));
-
     }
 
     @AfterMethod(alwaysRun = true)

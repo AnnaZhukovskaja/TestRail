@@ -1,8 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -14,22 +11,24 @@ public class SuitesPage extends BasePage {
     private final String EDIT_SECTION_NAME_INPUT_CSS= "[data-testid=editSectionName]";
     private final String SAVE_EDITED_SECTION_BUTTON_CSS = ".editSectionEdit";
     private final String ADD_SECTION_BUTTON_CSS = "[data-testid=addSectionInline]";
-    private final String TEST_CASES_MENU_BUTTON_ID = "navigation-suites";
+    private final String TEST_CASES_MENU_BUTTON_CSS = "#navigation-suites";
     private final String ADD_NAME_SECTION_CSS = "[data-testid=editSectionName]";
     private final String MESSAGE_NOT_TEST_CASES_CSS = "[data-testid=sectionCaseGridGroups]";
-    private final String MESSAGE_SUCCESSFUL_ADDED_TEST_CASE = "[data-testid=messageSuccessDivBox]";
+    private final String MESSAGE_SUCCESSFUL_ADDED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
     private final String ADD_TEST_CASE_BUTTON_CSS = "[data-testid=sidebarCasesAdd]";
-    private final String ADD_TEST_CASE_SAVE_CSS = "[data-testid=addTestCaseButton]";
+    private final String TEST_CASE_SAVE_BUTTON_CSS = "[data-testid=addTestCaseButton]";
     private final String TEST_CASE_TITLE_CSS = "[data-testid=addEditCaseTitle]";
     private final String TEST_CASE_ESTIMATE_CSS = "[data-testid=editCaseEstimate]";
     private final String TEST_CASE_REFERENCES_CSS = "[data-testid=editCaseRefs]";
-    private final String TEST_CASE_PRECONTITIONS_CSS = "#custom_preconds_display";
+    private final String TEST_CASE_PRECONDITIONS_CSS = "#custom_preconds_display";
     private final String TEST_CASE_STEP_CSS = "#custom_steps_display";
     private final String TEST_CASE_EXPECTED_RESULT_CSS = "#custom_expected_display";
-
+    private final String TEST_CASE_EDIT_BUTTON_CSS = "[data-testid=testCaseEditButton]";
+    private final String MESSAGE_SUCCESSFUL_EDITED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
+    private final String EDIT_CASE_DELETE_BUTTON_CSS = "[data-testid=editCaseDeleteButton]";
 
     public void addSection(String nameSection) {
-        $(By.id(TEST_CASES_MENU_BUTTON_ID)).click();
+        $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_SECTION_BUTTON_CSS).click();
         $(ADD_NAME_SECTION_CSS).sendKeys(nameSection);
         $(ADD_NAME_SECTION_CSS).pressEnter();
@@ -58,34 +57,57 @@ public class SuitesPage extends BasePage {
         return $$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).getText();
     }
 
-    public void deleteSection(String nameSection) {
+    public void deleteSection() {
         //executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
         //$$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).$(".icon-small-delete").click();
         executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].click();");
-        $("[data-testid=deleteCheckBoxTestId]").pressEnter().click();
+        //$(".grid-title .icon-small-delete").shouldBe(Condition.visible);
+        //$("[data-testid=deleteCheckBoxTestId]").pressEnter().click();
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
         //executeJavaScript("document.getElementsByClassName('dialog-confirm')[0].setAttribute('displayed', 'true');");
         executeJavaScript("document.getElementsByClassName('button-ok')[17].click();");
     }
 
-    public String getMessage() {
+    public String getMessageSuccessfulDeletedSection() {
         return $(MESSAGE_NOT_TEST_CASES_CSS).getText();
     }
 
-    public void addTestCase(String nameProject) {
-        $(By.id(TEST_CASES_MENU_BUTTON_ID)).click();
+    public void addTestCase(String nameTestCase) {
+        $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
-        $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
+        $(TEST_CASE_TITLE_CSS).sendKeys(nameTestCase);
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
-        $(TEST_CASE_PRECONTITIONS_CSS).sendKeys(testCase.getPreconditions());
+        $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
         $(TEST_CASE_STEP_CSS).sendKeys(testCase.getSteps());
         $(TEST_CASE_EXPECTED_RESULT_CSS).sendKeys(testCase.getExpectedResult());
-        $(ADD_TEST_CASE_SAVE_CSS).click();
+        $(TEST_CASE_SAVE_BUTTON_CSS).click();
     }
 
     public String getMessageSuccessfulAddedTestCase() {
-        return $(MESSAGE_SUCCESSFUL_ADDED_TEST_CASE).getText();
+        return $(MESSAGE_SUCCESSFUL_ADDED_TEST_CASE_CSS).getText();
     }
 
+    public void editTestCase(String information) {
+        refresh();
+        $(TEST_CASE_EDIT_BUTTON_CSS).click();
+        $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(information);
+        $(TEST_CASE_SAVE_BUTTON_CSS).click();
+    }
+
+    public String getMessageSuccessfulEditedTestCase() {
+        return $(MESSAGE_SUCCESSFUL_EDITED_TEST_CASE_CSS).getText();
+    }
+
+    public void deleteTestCase(String nameTestCase) {
+        $(TEST_CASES_MENU_BUTTON_CSS).click();
+        $$("[data-testid=sectionCaseTitle]").findBy(text(nameTestCase)).click();
+        $(TEST_CASE_EDIT_BUTTON_CSS).click();
+        $(EDIT_CASE_DELETE_BUTTON_CSS).click();
+        executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
+    }
+
+    public String getMessageSuccessfulDeletedTestCase() {
+        return $("[data-testid=messageSuccessDivBox]").getText();
+    }
 }

@@ -25,5 +25,4 @@ public class LoginPage extends BasePage {
     public String getErrorMessage() {
         return $(ERROR_MESSAGE_CSS).getText();
     }
-
 }
