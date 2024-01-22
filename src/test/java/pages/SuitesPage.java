@@ -1,6 +1,10 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import org.openqa.selenium.By;
+
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -26,6 +30,9 @@ public class SuitesPage extends BasePage {
     private final String TEST_CASE_EDIT_BUTTON_CSS = "[data-testid=testCaseEditButton]";
     private final String MESSAGE_SUCCESSFUL_EDITED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
     private final String EDIT_CASE_DELETE_BUTTON_CSS = "[data-testid=editCaseDeleteButton]";
+    private final String NAMES_TEST_CASE_IN_SECTION_CSS ="[data-testid=sectionCaseTitle]";
+
+    private final String MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
 
     public void addSection(String nameSection) {
         $(TEST_CASES_MENU_BUTTON_CSS).click();
@@ -57,14 +64,13 @@ public class SuitesPage extends BasePage {
         return $$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).getText();
     }
 
-    public void deleteSection() {
-        //executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
-        //$$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).$(".icon-small-delete").click();
+    public void deleteSection(String nameSection) {
+
+        executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
         executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].click();");
-        //$(".grid-title .icon-small-delete").shouldBe(Condition.visible);
-        //$("[data-testid=deleteCheckBoxTestId]").pressEnter().click();
+
+        //$(By.partialLinkText("You will irrevocably delete at least")).shouldBe(visible);
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
-        //executeJavaScript("document.getElementsByClassName('dialog-confirm')[0].setAttribute('displayed', 'true');");
         executeJavaScript("document.getElementsByClassName('button-ok')[17].click();");
     }
 
@@ -101,13 +107,13 @@ public class SuitesPage extends BasePage {
 
     public void deleteTestCase(String nameTestCase) {
         $(TEST_CASES_MENU_BUTTON_CSS).click();
-        $$("[data-testid=sectionCaseTitle]").findBy(text(nameTestCase)).click();
+        $$(NAMES_TEST_CASE_IN_SECTION_CSS).findBy(text(nameTestCase)).click();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
         $(EDIT_CASE_DELETE_BUTTON_CSS).click();
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
     }
 
     public String getMessageSuccessfulDeletedTestCase() {
-        return $("[data-testid=messageSuccessDivBox]").getText();
+        return $(MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS).getText();
     }
 }

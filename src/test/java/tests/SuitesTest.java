@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.annotations.Test;
 
+import static com.codeborne.selenide.Selenide.open;
 import static org.testng.Assert.*;
 
 public class SuitesTest extends BaseTest{
@@ -37,7 +38,7 @@ public class SuitesTest extends BaseTest{
         dashboardPage.openPage();
         dashboardPage.openProject(nameProject);
         suitesPage.addSection(nameSection);
-        suitesPage.deleteSection();
+         suitesPage.deleteSection(nameSection);
         assertEquals(suitesPage.getMessageSuccessfulDeletedSection(),"No test cases found.","The section has not been deleted.");
     }
 
