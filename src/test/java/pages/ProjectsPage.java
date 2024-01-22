@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.*;
 @Log4j2
 public class ProjectsPage extends BasePage {
     private final String MESSAGE_SUCCESS_CREATION_PROJECT_CSS = "[data-testid=messageSuccessDivBox]";
-    private final String NAMES_PROJECTS_CSS = ".hoverSensitive";
+    private final String PROJECT_NAMES_CSS = ".hoverSensitive";
     private final String DELETE_BUTTON_CSS = "[data-testid=projectDeleteButton]";
     private final String DELETE_DIALOG_BUTTON_OK_CSS = "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
     private final String MESSAGE_SUCCESS_DELETION_PROJECT_CSS = "[data-testid=messageSuccessDivBox]";
@@ -18,7 +18,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public void openProject(String nameProject) {
-        $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).click();
+        $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).click();
     }
 
     public String getMessageCreationProject() {
@@ -26,7 +26,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public void deleteProject(String nameProject) {
-        $$(NAMES_PROJECTS_CSS).findBy(text(nameProject)).find(DELETE_BUTTON_CSS).click();
+        $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).find(DELETE_BUTTON_CSS).click();
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
         $(DELETE_DIALOG_BUTTON_OK_CSS).click();
     }
@@ -36,7 +36,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public String getNameOfFirstProject() {
-        return $$(NAMES_PROJECTS_CSS).first().getText();
+        return $$(PROJECT_NAMES_CSS).first().getText();
     }
 }
 

@@ -9,13 +9,13 @@ public class EditProjectPage extends BasePage {
 
     private final String EDIT_PROJECT_BUTTON_CSS = "[data-testid=editProjectButton]";
     private final String ANNOUNCEMENT_TEXTAREA_CSS = "[data-testid=addEditProjectAnnouncement]";
-    private final String SAFE_PROJECT_BUTTON = "[data-testid=addEditProjectAddButton]";
+    private final String SAFE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String MESSAGE_SUCCESSFUL_SAVING_CSS = "[data-testid=messageSuccessDivBox]";
 
     public void editProject(String information) {
         $(EDIT_PROJECT_BUTTON_CSS).click();
         $(ANNOUNCEMENT_TEXTAREA_CSS).sendKeys(information);
-        $(SAFE_PROJECT_BUTTON).click();
+        $(SAFE_PROJECT_BUTTON_CSS).click();
     }
 
     public String geMessageSuccessfulSaving() {

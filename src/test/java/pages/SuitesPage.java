@@ -1,16 +1,12 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
-import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class SuitesPage extends BasePage {
 
-    private final String NAMES_SECTIONS_CSS = ".grid-title .title";
+    private final String SECTION_NAMES_CSS = ".grid-title .title";
     private final String EDIT_SMALL_BUTTON_CSS = ".grid-title .icon-small-edit";
     private final String EDIT_SECTION_NAME_INPUT_CSS= "[data-testid=editSectionName]";
     private final String SAVE_EDITED_SECTION_BUTTON_CSS = ".editSectionEdit";
@@ -30,8 +26,7 @@ public class SuitesPage extends BasePage {
     private final String TEST_CASE_EDIT_BUTTON_CSS = "[data-testid=testCaseEditButton]";
     private final String MESSAGE_SUCCESSFUL_EDITED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
     private final String EDIT_CASE_DELETE_BUTTON_CSS = "[data-testid=editCaseDeleteButton]";
-    private final String NAMES_TEST_CASE_IN_SECTION_CSS ="[data-testid=sectionCaseTitle]";
-
+    private final String NAMES_OF_TEST_CASES_IN_SECTION_CSS ="[data-testid=sectionCaseTitle]";
     private final String MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
 
     public void addSection(String nameSection) {
@@ -50,7 +45,7 @@ public class SuitesPage extends BasePage {
 //            return false;
 //        }
 //        return true;
-        return $$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).getText();
+        return $$(SECTION_NAMES_CSS).findBy(text(nameSection)).getText();
 
     }
 
@@ -61,7 +56,7 @@ public class SuitesPage extends BasePage {
     }
 
     public String findSectionName(String nameSection) {
-        return $$(NAMES_SECTIONS_CSS).findBy(text(nameSection)).getText();
+        return $$(SECTION_NAMES_CSS).findBy(text(nameSection)).getText();
     }
 
     public void deleteSection(String nameSection) {
@@ -107,7 +102,7 @@ public class SuitesPage extends BasePage {
 
     public void deleteTestCase(String nameTestCase) {
         $(TEST_CASES_MENU_BUTTON_CSS).click();
-        $$(NAMES_TEST_CASE_IN_SECTION_CSS).findBy(text(nameTestCase)).click();
+        $$(NAMES_OF_TEST_CASES_IN_SECTION_CSS).findBy(text(nameTestCase)).click();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
         $(EDIT_CASE_DELETE_BUTTON_CSS).click();
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
