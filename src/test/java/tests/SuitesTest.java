@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 
 public class SuitesTest extends BaseTest{
 
-    @Test
+    @Test (description = "Сhecking for the creation of a section")
     public void sectionShouldBeAdded() {
         loginPage.openPage();
         loginPage.login(user, password);
@@ -18,7 +18,7 @@ public class SuitesTest extends BaseTest{
         assertTrue(suitesPage.findSectionName(nameSection).contains(nameSection), "The section has not been added.");
     }
 
-    @Test
+    @Test (description = "Сhecking for changes to the section")
     public void sectionShouldBeEdited() {
         loginPage.openPage();
         loginPage.login(user, password);
@@ -30,7 +30,7 @@ public class SuitesTest extends BaseTest{
         assertTrue(suitesPage.findSectionName(information).contains(information),"Section has not been edited successfully.");
     }
 
-    @Test
+    @Test (retryAnalyzer = Retry.class, description = "Checking for section deletion")
     public void sectionShouldBeDeleted() {
         loginPage.openPage();
         loginPage.login(user, password);
@@ -42,7 +42,7 @@ public class SuitesTest extends BaseTest{
         assertEquals(suitesPage.getMessageSuccessfulDeletedSection(),"No test cases found.","The section has not been deleted.");
     }
 
-    @Test
+    @Test (retryAnalyzer = Retry.class, description = "Сhecking for the creation of a test case")
     public void testCaseShouldBeAdded() {
         loginPage.openPage();
         loginPage.login(user, password);
@@ -55,7 +55,7 @@ public class SuitesTest extends BaseTest{
                 "The test-case has not been added." );
     }
 
-    @Test
+    @Test (retryAnalyzer = Retry.class, description = "Сhecking for changes to the test case")
     public void testCaseShouldBeEdited() {
         loginPage.openPage();
         loginPage.login(user, password);
@@ -70,7 +70,7 @@ public class SuitesTest extends BaseTest{
                 "The test-case has not been edited." );
     }
 
-    @Test
+    @Test (retryAnalyzer = Retry.class, description = "Checking for test case deletion")
     public void testCaseShouldBeDeleted() {
         loginPage.openPage();
         loginPage.login(user, password);
