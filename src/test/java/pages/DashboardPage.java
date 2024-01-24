@@ -14,9 +14,10 @@ public class DashboardPage extends BasePage {
     private final String CREATE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String PROJECT_NAMES_CSS = ".summary-title > a";
 
-    public void openPage() {
+    public DashboardPage openPage() {
         log.info("Opening dashboard page");
         open("dashboard");
+        return this;
     }
 
     public String getTitle() {

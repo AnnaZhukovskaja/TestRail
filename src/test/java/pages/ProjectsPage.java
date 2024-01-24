@@ -14,9 +14,10 @@ public class ProjectsPage extends BasePage {
     private final String DELETE_DIALOG_BUTTON_OK_CSS = "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
     private final String MESSAGE_SUCCESS_DELETION_PROJECT_CSS = "[data-testid=messageSuccessDivBox]";
 
-    public void openPage() {
+    public ProjectsPage openPage() {
         log.info("Opening projects page");
         open("admin/projects/overview");
+        return this;
     }
 
     @Step("Opening project by name: '{nameProject}'")

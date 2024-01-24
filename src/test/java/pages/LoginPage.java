@@ -13,9 +13,10 @@ public class LoginPage extends BasePage {
     private final String LOG_IN_BUTTON_CSS = "[data-testid=loginButtonPrimary]";
     private final String ERROR_MESSAGE_CSS = ".loginpage-message";
 
-    public void openPage() {
+    public LoginPage openPage() {
         log.info("Opening login page");
         open("auth/login/");
+        return this;
     }
 
     @Step("Log in using credentials: '{user}','{password}'")
