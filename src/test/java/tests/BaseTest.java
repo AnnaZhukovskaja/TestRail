@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import pages.*;
 import utils.PropertyReader;
 
@@ -11,6 +12,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Listeners(TestListener.class)
 public class BaseTest {
     LoginPage loginPage;
     DashboardPage dashboardPage;
@@ -29,7 +31,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.baseUrl = "https://nwcompany.testrail.io/index.php?/";
         open();

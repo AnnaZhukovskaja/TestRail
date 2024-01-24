@@ -19,9 +19,8 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      USER: ${{ secrets.TR_USER }}
-      PASSWORD: ${{ secrets.TR_PASSWORD }}
-
+      USER: ${{secrets.TR_USER}}
+      PASSWORD: ${{secrets.TR_PASSWORD}}
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17

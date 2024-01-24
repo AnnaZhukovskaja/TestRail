@@ -1,9 +1,17 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.Keys;
+
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
+@Log4j2
 public class SuitesPage extends BasePage {
 
     private final String SECTION_NAMES_CSS = ".grid-title .title";
@@ -30,6 +38,7 @@ public class SuitesPage extends BasePage {
     private final String MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
 
     public void addSection(String nameSection) {
+        log.info("Adding section");
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_SECTION_BUTTON_CSS).click();
         $(ADD_NAME_SECTION_CSS).sendKeys(nameSection);
@@ -37,7 +46,7 @@ public class SuitesPage extends BasePage {
     }
 
     public String findSectionNameWithBooleanResult(String nameSection) {
-
+        log.info("Searching for the section name in the list");
 //        try {
 //            $$(NAMES_SECTIONS_CSS).findBy(text(nameSection));
 //        } catch (NoSuchElementException e) {
@@ -50,33 +59,40 @@ public class SuitesPage extends BasePage {
     }
 
     public void editSection(String information) {
+        log.info("Changing name of section");
         $(EDIT_SMALL_BUTTON_CSS).click();
         $(EDIT_SECTION_NAME_INPUT_CSS).sendKeys(information);
         $(SAVE_EDITED_SECTION_BUTTON_CSS).click();
     }
 
     public String findSectionName(String nameSection) {
+        log.info("Searching name of section");
         return $$(SECTION_NAMES_CSS).findBy(text(nameSection)).getText();
     }
 
     public void deleteSection(String nameSection) {
+        log.info("Deleting section");
 
         executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
         executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].click();");
 
         //$(By.partialLinkText("You will irrevocably delete at least")).shouldBe(visible);
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
+
         executeJavaScript("document.getElementsByClassName('button-ok')[17].click();");
     }
 
     public String getMessageSuccessfulDeletedSection() {
+        log.info("Getting а message about a successful deletion selection");
         return $(MESSAGE_NOT_TEST_CASES_CSS).getText();
     }
 
     public void addTestCase(String nameTestCase) {
+        log.info("Creating test-case");
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
         $(TEST_CASE_TITLE_CSS).sendKeys(nameTestCase);
+        sleep(300);
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
@@ -86,10 +102,12 @@ public class SuitesPage extends BasePage {
     }
 
     public String getMessageSuccessfulAddedTestCase() {
+        log.info("Getting а message about a successful added test-case");
         return $(MESSAGE_SUCCESSFUL_ADDED_TEST_CASE_CSS).getText();
     }
 
     public void editTestCase(String information) {
+        log.info("Changing the test-case");
         refresh();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(information);
@@ -97,10 +115,12 @@ public class SuitesPage extends BasePage {
     }
 
     public String getMessageSuccessfulEditedTestCase() {
+        log.info("Getting а message about a successful edition test-case");
         return $(MESSAGE_SUCCESSFUL_EDITED_TEST_CASE_CSS).getText();
     }
 
     public void deleteTestCase(String nameTestCase) {
+        log.info("Deleting the nest-case by name");
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $$(NAMES_OF_TEST_CASES_IN_SECTION_CSS).findBy(text(nameTestCase)).click();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
@@ -109,6 +129,7 @@ public class SuitesPage extends BasePage {
     }
 
     public String getMessageSuccessfulDeletedTestCase() {
+        log.info("Getting а message about a successful deletion test-case");
         return $(MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS).getText();
     }
 }

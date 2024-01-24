@@ -13,11 +13,11 @@ public class BasePage {
 
     BasePage() {
         faker = new Faker();
-        testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),"5m","-",
-                "You need to create a project.","Step" + faker.number().numberBetween(1, 1000),
+       testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
+                "5m",
+                "-",
+                "You need to create a project.",
+                "Step" + faker.number().numberBetween(1, 1000),
                 "The test case has been added.");
     }
-
-
-
 }

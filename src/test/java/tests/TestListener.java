@@ -11,7 +11,6 @@ import org.testng.ITestResult;
 
 import java.util.concurrent.TimeUnit;
 
-
 @Log4j2
 public class TestListener implements ITestListener {
 
@@ -25,7 +24,7 @@ public class TestListener implements ITestListener {
         log.info(String.format("======================================== FINISHED TEST %s Duration: %ss ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
         WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        takeScreenshot(driver);
+        //takeScreenshot(driver);
     }
 
     @Override
@@ -33,7 +32,8 @@ public class TestListener implements ITestListener {
         log.error(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
         WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        takeScreenshot(driver);
+
+        //takeScreenshot(driver);
     }
 
     @Override
