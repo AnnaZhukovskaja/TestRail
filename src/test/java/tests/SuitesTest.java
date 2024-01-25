@@ -24,7 +24,7 @@ public class SuitesTest extends BaseTest{
         assertTrue(suitesPage.findSectionName(information).contains(information),"Section has not been edited successfully.");
     }
 
-    @Test //(retryAnalyzer = Retry.class, description = "Checking for section deletion")
+    @Test (retryAnalyzer = Retry.class, description = "Checking for section deletion")
     public void sectionShouldBeDeleted() {
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);

@@ -1,14 +1,12 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -22,7 +20,7 @@ public class SuitesPage extends BasePage {
     private final String ADD_SECTION_BUTTON_CSS = "[data-testid=addSectionInline]";
     private final String TEST_CASES_MENU_BUTTON_CSS = "#navigation-suites";
     private final String ADD_NAME_SECTION_CSS = "[data-testid=editSectionName]";
-    private final String MESSAGE_NOT_TEST_CASES_CSS = "[data-testid=sectionCaseGridGroups]";
+    private final String MESSAGE_NOT_TEST_CASES_CSS = "#groupsEmpty";
     private final String MESSAGE_SUCCESSFUL_ADDED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
     private final String ADD_TEST_CASE_BUTTON_CSS = "[data-testid=sidebarCasesAdd]";
     private final String TEST_CASE_SAVE_BUTTON_CSS = "[data-testid=addTestCaseButton]";
@@ -37,6 +35,10 @@ public class SuitesPage extends BasePage {
     private final String EDIT_CASE_DELETE_BUTTON_CSS = "[data-testid=editCaseDeleteButton]";
     private final String NAMES_OF_TEST_CASES_IN_SECTION_CSS ="[data-testid=sectionCaseTitle]";
     private final String MESSAGE_SUCCESSFUL_DELETED_TEST_CASE_CSS = "[data-testid=messageSuccessDivBox]";
+    private final String TITLE_SECTION_CSS = ".grid-title";
+    private final String DELETE_SECTION_SMALL_ICON_XPATH = "//*[@class='grid-title']//child::a[2]//following-sibling::div";
+    private final String CHECKBOX_IN_DIALOG_MESSAGE_DELETE_CSS ="[data-testid=caseFieldsTabDeleteDialogCheckbox]";
+    private final String BUTTON_OK_IN_DIALOG_MESSAGE_DELETE_CSS= "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
 
     public SuitesPage addSection(String nameSection) {
         log.info("Adding section");
@@ -61,14 +63,13 @@ public class SuitesPage extends BasePage {
 
     public void deleteSection() {
         log.info("Deleting section");
-
-        executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].setAttribute('displayed', 'true');");
-        executeJavaScript("document.getElementsByClassName('icon-small-delete')[0].click();");
-
-        //$(By.partialLinkText("You will irrevocably delete at least")).shouldBe(visible);
-        executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
-
-        executeJavaScript("document.getElementsByClassName('button-ok')[17].click();");
+        $(TITLE_SECTION_CSS).hover();
+        $(By.xpath(DELETE_SECTION_SMALL_ICON_XPATH)).click();
+        sleep(1000);
+        $(CHECKBOX_IN_DIALOG_MESSAGE_DELETE_CSS).click();
+        sleep(1000);
+        $(BUTTON_OK_IN_DIALOG_MESSAGE_DELETE_CSS).click();
+        sleep(1000);
     }
 
     public String getMessageSuccessfulDeletedSection() {
@@ -81,7 +82,7 @@ public class SuitesPage extends BasePage {
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
         $(TEST_CASE_TITLE_CSS).sendKeys(nameTestCase);
-        sleep(300);
+        sleep(1000);
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
