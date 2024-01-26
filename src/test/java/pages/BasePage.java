@@ -8,7 +8,6 @@ import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.$;
 
-
 @Log4j2
 public class BasePage {
 
