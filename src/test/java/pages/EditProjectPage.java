@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -12,6 +13,7 @@ public class EditProjectPage extends BasePage {
     private final String SAFE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String MESSAGE_SUCCESSFUL_SAVING_CSS = "[data-testid=messageSuccessDivBox]";
 
+    @Step("Editing the project")
     public void editProject(String information) {
         log.info("Editing the project");
         $(EDIT_PROJECT_BUTTON_CSS).click();
@@ -19,6 +21,7 @@ public class EditProjectPage extends BasePage {
         $(SAFE_PROJECT_BUTTON_CSS).click();
     }
 
+    @Step("Getting а message about a successful project change")
     public String geMessageSuccessfulSaving() {
         log.info("Getting а message about a successful project change");
         return $(MESSAGE_SUCCESSFUL_SAVING_CSS).getText();

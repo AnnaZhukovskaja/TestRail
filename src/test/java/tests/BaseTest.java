@@ -33,7 +33,6 @@ public class BaseTest {
         Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.timeout = 10000;
-        Configuration.baseUrl = "https://nwcompany.testrail.io/index.php?/";
         open();
         getWebDriver().manage().window().maximize();
 
@@ -51,9 +50,7 @@ public class BaseTest {
         suitesPage = new SuitesPage();
 
         user = System.getProperty("user", PropertyReader.getProperty("tr.user"));
-        System.out.println(System.getenv(user));
         password = System.getProperty("password", PropertyReader.getProperty("tr.password"));
-        System.out.println(System.getenv(password));
     }
 
     @AfterMethod(alwaysRun = true)

@@ -16,7 +16,7 @@ public class ProjectsPage extends BasePage {
 
     public ProjectsPage openPage() {
         log.info("Opening projects page");
-        open("admin/projects/overview");
+        open(BASE_URL + "admin/projects/overview");
         return this;
     }
 
@@ -26,6 +26,7 @@ public class ProjectsPage extends BasePage {
         $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).click();
     }
 
+    @Step("Getting а message about a successful creation project")
     public String getMessageCreationProject() {
         log.info("Getting а message about a successful creation project");
         return $(MESSAGE_SUCCESS_CREATION_PROJECT_CSS).getText();
@@ -39,11 +40,13 @@ public class ProjectsPage extends BasePage {
         $(DELETE_DIALOG_BUTTON_OK_CSS).click();
     }
 
+    @Step("Getting а message about a successful deletion project")
     public String getMessageDeletionProject() {
         log.info("Getting а message about a successful deletion project");
         return $(MESSAGE_SUCCESS_DELETION_PROJECT_CSS).getText();
     }
 
+    @Step("Getting name of first project in the page")
     public String getNameOfFirstProject() {
         log.info("Getting name of first project in the page");
         return $$(PROJECT_NAMES_CSS).first().getText();

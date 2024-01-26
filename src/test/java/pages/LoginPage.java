@@ -13,9 +13,10 @@ public class LoginPage extends BasePage {
     private final String LOG_IN_BUTTON_CSS = "[data-testid=loginButtonPrimary]";
     private final String ERROR_MESSAGE_CSS = ".loginpage-message";
 
+    @Step("Opening login page")
     public LoginPage openPage() {
         log.info("Opening login page");
-        open("auth/login/");
+        open(BASE_URL + "auth/login/");
         return this;
     }
 
@@ -27,6 +28,7 @@ public class LoginPage extends BasePage {
         $(LOG_IN_BUTTON_CSS).click();
     }
 
+    @Step("Getting an error when data is filled in incorrectly")
     public String getErrorMessage() {
         log.info("Getting an error when data is filled in incorrectly");
         return $(ERROR_MESSAGE_CSS).getText();

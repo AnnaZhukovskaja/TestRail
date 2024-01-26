@@ -39,7 +39,7 @@ public class SuitesTest extends BaseTest{
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
         suitesPage.addSection(nameSection).addTestCase(nameTestCase);
-        assertTrue(suitesPage.getMessageSuccessfulAddedTestCase().contains("Successfully added the new test case."),
+        assertTrue(suitesPage.getMessageSuccessfulResult().contains("Successfully added the new test case."),
                 "The test-case has not been added." );
     }
 
@@ -50,7 +50,7 @@ public class SuitesTest extends BaseTest{
         dashboardPage.openPage().openProject(nameProject);
         suitesPage.addSection(nameSection).addTestCase(nameTestCase);
         suitesPage.editTestCase(information);
-        assertEquals(suitesPage.getMessageSuccessfulEditedTestCase(),
+        assertEquals(suitesPage.getMessageSuccessfulResult(),
                 "Successfully updated the test case.",
                 "The test-case has not been edited." );
     }
@@ -62,7 +62,7 @@ public class SuitesTest extends BaseTest{
         dashboardPage.openPage().openProject(nameProject);
         suitesPage.addSection(nameSection).addTestCase(nameTestCase);
         suitesPage.deleteTestCase(nameTestCase);
-        assertEquals(suitesPage.getMessageSuccessfulDeletedTestCase(),
+        assertEquals(suitesPage.getMessageSuccessfulResult(),
                 "Successfully flagged the test case as deleted.",
                 "The test-case has not been deleted." );
     }

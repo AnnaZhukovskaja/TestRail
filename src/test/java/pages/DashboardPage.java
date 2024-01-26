@@ -14,12 +14,14 @@ public class DashboardPage extends BasePage {
     private final String CREATE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String PROJECT_NAMES_CSS = ".summary-title > a";
 
+    @Step("Opening dashboard page")
     public DashboardPage openPage() {
         log.info("Opening dashboard page");
-        open("dashboard");
+        open(BASE_URL + "dashboard");
         return this;
     }
 
+    @Step("Getting the title")
     public String getTitle() {
         log.info("Getting the title");
         return $(TITLE_CSS).getText();
@@ -33,12 +35,13 @@ public class DashboardPage extends BasePage {
         $(CREATE_PROJECT_BUTTON_CSS).click();
     }
 
-    @Step("Opening a project by name: '{nameProject}'")
+    @Step("Opening the project by name: '{nameProject}'")
     public void openProject(String nameProject) {
-        log.info("Opening project by name: '{}'",nameProject);
+        log.info("Opening the project by name: '{}'",nameProject);
         $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).click();
     }
 
+    @Step("Getting name of first project in the page")
     public String getNameOfFirstProject() {
         log.info("Getting name of first project in the page");
         return $$(PROJECT_NAMES_CSS).first().getText();
