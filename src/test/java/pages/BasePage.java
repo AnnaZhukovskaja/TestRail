@@ -16,7 +16,7 @@ public class BasePage {
     final String BASE_URL = PropertyReader.getProperty("tr.base.url");
 
     BasePage() {
-        faker = new Faker();
+       faker = new Faker();
        testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
                 "5m",
                 "-",
