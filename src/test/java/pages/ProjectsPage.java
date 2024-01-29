@@ -8,11 +8,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class ProjectsPage extends BasePage {
-    private final String MESSAGE_SUCCESS_CREATION_PROJECT_CSS = "[data-testid=messageSuccessDivBox]";
+    private final String MESSAGE_SUCCESSFUL_RESULT_CSS = "[data-testid=messageSuccessDivBox]";
     private final String PROJECT_NAMES_CSS = ".hoverSensitive";
     private final String DELETE_BUTTON_CSS = "[data-testid=projectDeleteButton]";
     private final String DELETE_DIALOG_BUTTON_OK_CSS = "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
-    private final String MESSAGE_SUCCESS_DELETION_PROJECT_CSS = "[data-testid=messageSuccessDivBox]";
 
     @Step("Opening projects page")
     public ProjectsPage openPage() {
@@ -30,7 +29,7 @@ public class ProjectsPage extends BasePage {
     @Step("Getting а message about a successful creation project")
     public String getMessageCreationProject() {
         log.info("Getting а message about a successful creation project");
-        return $(MESSAGE_SUCCESS_CREATION_PROJECT_CSS).getText();
+        return $(MESSAGE_SUCCESSFUL_RESULT_CSS).getText();
     }
 
     @Step("Deletion project by name: '{nameProject}'")
@@ -44,7 +43,7 @@ public class ProjectsPage extends BasePage {
     @Step("Getting а message about a successful deletion project")
     public String getMessageDeletionProject() {
         log.info("Getting а message about a successful deletion project");
-        return $(MESSAGE_SUCCESS_DELETION_PROJECT_CSS).getText();
+        return $(MESSAGE_SUCCESSFUL_RESULT_CSS).getText();
     }
 
     @Step("Getting name of first project in the page")
