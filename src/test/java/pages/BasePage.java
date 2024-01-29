@@ -24,7 +24,4 @@ public class BasePage {
                 "Step" + faker.number().numberBetween(1, 1000),
                 "The test case has been added.");
     }
-    public void waitTillOpened() {
-        $("[data-testid=testCaseContentHeaderTitle]").shouldHave(Condition.text("Add Test Case"));
-    }
 }

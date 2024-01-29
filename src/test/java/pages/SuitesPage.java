@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -37,6 +38,7 @@ public class SuitesPage extends BasePage {
     private final String DELETE_SECTION_SMALL_ICON_XPATH = "//*[@class='grid-title']//child::a[2]//following-sibling::div";
     private final String CHECKBOX_IN_DIALOG_MESSAGE_DELETE_CSS ="[data-testid=caseFieldsTabDeleteDialogCheckbox]";
     private final String BUTTON_OK_IN_DIALOG_MESSAGE_DELETE_CSS= "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
+    final String TITLE_IN_ADD_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
 
     @Step("Adding section")
     public SuitesPage addSection(String nameSection) {
@@ -87,7 +89,7 @@ public class SuitesPage extends BasePage {
         $(ADD_TEST_CASE_BUTTON_CSS).click();
         waitTillOpened();
         $(TEST_CASE_TITLE_CSS).sendKeys(nameTestCase);
-        sleep(1000);
+        sleep(2000);
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
@@ -119,5 +121,9 @@ public class SuitesPage extends BasePage {
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
         $(EDIT_CASE_DELETE_BUTTON_CSS).click();
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
+    }
+
+    public void waitTillOpened() {
+        $(TITLE_IN_ADD_TEST_CASE_PAGE_CSS).shouldHave(Condition.text("Add Test Case"));
     }
 }
