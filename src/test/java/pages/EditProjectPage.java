@@ -22,7 +22,7 @@ public class EditProjectPage extends BasePage {
     }
 
     @Step("Getting а message about a successful project change")
-    public String geMessageSuccessfulSaving() {
+    public String getMessageSuccessfulSaving() {
         log.info("Getting а message about a successful project change");
         return $(MESSAGE_SUCCESSFUL_SAVING_CSS).getText();
     }

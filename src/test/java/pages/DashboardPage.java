@@ -36,9 +36,10 @@ public class DashboardPage extends BasePage {
     }
 
     @Step("Opening the project by name: '{nameProject}'")
-    public void openProject(String nameProject) {
+    public ProjectsPage openProject(String nameProject) {
         log.info("Opening the project by name: '{}'",nameProject);
         $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).click();
+        return new ProjectsPage();
     }
 
     @Step("Getting name of first project in the page")

@@ -11,7 +11,7 @@ public class ProjectsTest extends BaseTest {
     public void projectShouldBeCreated() {
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
-        assertEquals(projectPage.getMessageCreationProject(),
+        assertEquals(projectPage.getMessageSuccessfulResult(),
                 "Successfully added the new project.",
                 "The project has not been created.");
     }
@@ -19,9 +19,9 @@ public class ProjectsTest extends BaseTest {
     @Test (description = "Сhecking for changes to the project")
     public void projectShouldBeEdited() {
         loginPage.openPage().login(user, password);
-        dashboardPage.openProject(dashboardPage.getNameOfFirstProject());
-        editProjectPage.editProject(information);
-        assertEquals(editProjectPage.geMessageSuccessfulSaving(),
+        dashboardPage.createProject(nameProject);
+        projectsPage.openProject(nameProject).editProject("https://nwcompany.testrail.io/index.php?/admin/projects/edit/394");
+        assertEquals(projectPage.getMessageSuccessfulResult(),
                 "Successfully updated the project.",
                 "The project has not been changed.");
     }
@@ -29,7 +29,10 @@ public class ProjectsTest extends BaseTest {
     @Test (description = "Checking for project deletion")
     public void projectShouldBeDeleted() {
         loginPage.openPage().login(user, password);
-        projectPage.openPage().deleteProject(projectsPage.getNameOfFirstProject());
-        assertEquals(projectPage.getMessageDeletionProject(), "Successfully deleted the project.", "The project has not been deleted.");
+        dashboardPage.createProject(nameProject);
+        projectsPage.deleteProject(nameProject);
+        assertEquals(projectPage.getMessageSuccessfulResult(),
+                "Successfully deleted the project.",
+                "The project has not been deleted.");
     }
 }

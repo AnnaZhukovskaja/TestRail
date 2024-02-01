@@ -1,5 +1,6 @@
 package tests;
 
+import dto.TestCase;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -12,7 +13,7 @@ public class SuitesTest extends BaseTest{
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
         suitesPage.addSection(nameSection);
-        assertTrue(suitesPage.findSectionName(nameSection).contains(nameSection), "The section has not been added.");
+        suitesPage.sectionShouldExist(nameSection);
     }
 
     @Test (description = "Сhecking for changes to the section")
@@ -20,8 +21,9 @@ public class SuitesTest extends BaseTest{
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
-        suitesPage.addSection(nameSection).editSection(information);
-        assertTrue(suitesPage.findSectionName(information).contains(information),"Section has not been edited successfully.");
+        String newNameSection = nameSection + "Update";
+        suitesPage.addSection(nameSection).editSection(newNameSection);
+        suitesPage.sectionShouldExist(newNameSection);
     }
 
     @Test (description = "Checking for section deletion")
@@ -38,7 +40,13 @@ public class SuitesTest extends BaseTest{
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
-        suitesPage.addSection(nameSection).addTestCase(nameTestCase);
+        TestCase testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
+                "5m",
+                "-",
+                "You need to create a project.",
+                "Step" + faker.number().numberBetween(1, 1000),
+                "The test case has been added.");
+        suitesPage.addSection(nameSection).addTestCase(testCase);
         assertTrue(suitesPage.getMessageSuccessfulResult().contains("Successfully added the new test case."),
                 "The test-case has not been added." );
     }
@@ -48,7 +56,13 @@ public class SuitesTest extends BaseTest{
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
-        suitesPage.addSection(nameSection).addTestCase(nameTestCase);
+        TestCase testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
+                "5m",
+                "-",
+                "You need to create a project.",
+                "Step" + faker.number().numberBetween(1, 1000),
+                "The test case has been added.");
+        suitesPage.addSection(nameSection).addTestCase(testCase);
         suitesPage.editTestCase(information);
         assertEquals(suitesPage.getMessageSuccessfulResult(),
                 "Successfully updated the test case.",
@@ -60,8 +74,14 @@ public class SuitesTest extends BaseTest{
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
         dashboardPage.openPage().openProject(nameProject);
-        suitesPage.addSection(nameSection).addTestCase(nameTestCase);
-        suitesPage.deleteTestCase(nameTestCase);
+        TestCase testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
+                "5m",
+                "-",
+                "You need to create a project.",
+                "Step" + faker.number().numberBetween(1, 1000),
+                "The test case has been added.");
+        suitesPage.addSection(nameSection).addTestCase(testCase);
+        suitesPage.deleteTestCase(testCase.getTitle());
         assertEquals(suitesPage.getMessageSuccessfulResult(),
                 "Successfully flagged the test case as deleted.",
                 "The test-case has not been deleted." );

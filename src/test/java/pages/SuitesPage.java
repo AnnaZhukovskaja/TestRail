@@ -1,13 +1,12 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import dto.TestCase;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-
-import static com.codeborne.selenide.Condition.text;
-
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -51,17 +50,17 @@ public class SuitesPage extends BasePage {
     }
 
     @Step("Changing name of section")
-    public void editSection(String information) {
+    public void editSection(String newName) {
         log.info("Changing name of section");
         $(EDIT_SMALL_BUTTON_CSS).click();
-        $(EDIT_SECTION_NAME_INPUT_CSS).sendKeys(information);
+        $(EDIT_SECTION_NAME_INPUT_CSS).sendKeys(newName);
         $(SAVE_EDITED_SECTION_BUTTON_CSS).click();
     }
 
     @Step("Searching name of section")
-    public String findSectionName(String nameSection) {
+    public void sectionShouldExist(String nameSection) {
         log.info("Searching name of section");
-        return $$(SECTION_NAMES_CSS).findBy(text(nameSection)).getText();
+        $$(SECTION_NAMES_CSS).findBy(text(nameSection)).shouldBe(visible);
     }
 
     @Step("Deleting section")
@@ -83,12 +82,12 @@ public class SuitesPage extends BasePage {
     }
 
     @Step("Creating test-case")
-    public void addTestCase(String nameTestCase) {
+    public void addTestCase(TestCase testCase) {
         log.info("Creating test-case");
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
-        waitTillOpened();
-        $(TEST_CASE_TITLE_CSS).sendKeys(nameTestCase);
+        waitTillOpenedTestCasePage();
+        $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
         sleep(2000);
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
@@ -123,7 +122,8 @@ public class SuitesPage extends BasePage {
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
     }
 
-    public void waitTillOpened() {
+    public void waitTillOpenedTestCasePage() {
         $(TITLE_IN_ADD_TEST_CASE_PAGE_CSS).shouldHave(Condition.text("Add Test Case"));
     }
+
 }

@@ -27,11 +27,13 @@ public class BaseTest {
     String nameSection;
     String nameTestCase;
     String information;
+    String description;
+
 
     @BeforeMethod
     public void setup() {
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.timeout = 10000;
         open();
         getWebDriver().manage().window().maximize();
@@ -41,6 +43,7 @@ public class BaseTest {
         information = faker.company().name();
         nameSection = "Section " + faker.number().numberBetween(1, 1000);
         nameTestCase = "TestCase" + faker.number().numberBetween(1, 1000);
+        description = "The information has been changed";
 
         projectsPage = new ProjectsPage();
         loginPage = new LoginPage();
