@@ -33,7 +33,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
         Configuration.browser = "chrome";
-        Configuration.headless = false;
+        Configuration.headless = true;
         Configuration.timeout = 10000;
         open();
         getWebDriver().manage().window().maximize();
