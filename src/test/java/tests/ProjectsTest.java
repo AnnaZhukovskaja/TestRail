@@ -35,4 +35,10 @@ public class ProjectsTest extends BaseTest {
                 "Successfully deleted the project.",
                 "The project has not been deleted.");
     }
+
+//    @Test(invocationCount = 1)
+//    public void deleteAllProject() {
+//        loginPage.openPage().login(user, password);
+//        projectsPage.openPage().deleteProject(projectPage.getNameOfFirstProject());
+//    }
 }

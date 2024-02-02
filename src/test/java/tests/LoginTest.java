@@ -29,4 +29,11 @@ public class LoginTest extends BaseTest {
         loginPage.openPage().login("", "");
         assertEquals(loginPage.getErrorMessage(), "Email/Login is required.", "User is not logged in or wrong notification");
     }
+
+    @Test(description = "Checking of log out")
+    public void userShouldBeLogOut() {
+        loginPage.openPage().login(user, password);
+        loginPage.logOut();
+        assertEquals(loginPage.getMessageSuccess(),"Log into Your Account", "Error in logging out of personal account");
+    }
 }

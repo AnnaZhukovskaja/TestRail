@@ -20,6 +20,7 @@ public class BaseTest {
     EditProjectPage editProjectPage;
     SuitesPage suitesPage;
     ProjectsPage projectsPage;
+    MilestonesPage milestonePage;
     String user;
     String password;
     Faker faker;
@@ -45,12 +46,14 @@ public class BaseTest {
         nameTestCase = "TestCase" + faker.number().numberBetween(1, 1000);
         description = "The information has been changed";
 
+
         projectsPage = new ProjectsPage();
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
         projectPage = new ProjectsPage();
         editProjectPage = new EditProjectPage();
         suitesPage = new SuitesPage();
+        milestonePage = new MilestonesPage();
 
         user = System.getProperty("user", PropertyReader.getProperty("tr.user"));
         password = System.getProperty("password", PropertyReader.getProperty("tr.password"));

@@ -11,6 +11,7 @@
         <classes>
             <class name="tests.LoginTest"/>
             <class name="tests.ProjectsTest"/>
+            <class name="tests.MilestonesTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="Thread #2">

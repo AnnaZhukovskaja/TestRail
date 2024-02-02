@@ -5,6 +5,7 @@ import dto.TestCase;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import wrappers.DropDownTestCase;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -37,7 +38,9 @@ public class SuitesPage extends BasePage {
     private final String DELETE_SECTION_SMALL_ICON_XPATH = "//*[@class='grid-title']//child::a[2]//following-sibling::div";
     private final String CHECKBOX_IN_DIALOG_MESSAGE_DELETE_CSS ="[data-testid=caseFieldsTabDeleteDialogCheckbox]";
     private final String BUTTON_OK_IN_DIALOG_MESSAGE_DELETE_CSS= "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
-    final String TITLE_IN_ADD_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
+    private final String TITLE_IN_ADD_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
+    private final String DROP_DOWN_TEST_CASE_XPATH = "//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]";
+    public static String CLICK_DROPDOWN_XPATH = "//*[contains(@class,'chzn-container-active')]//li[contains(text(),'%s')]";
 
     @Step("Adding section")
     public SuitesPage addSection(String nameSection) {
@@ -89,6 +92,11 @@ public class SuitesPage extends BasePage {
         waitTillOpenedTestCasePage();
         $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
         sleep(2000);
+        $(By.xpath("//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]")).click();
+        $(By.xpath("//*[contains(@class,'chzn-container-active')]//li[contains(text(),'Automated')]")).click();
+        //new DropDownTestCase("Type").selectForTestCase("Automated");
+
+
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
