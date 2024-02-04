@@ -1,9 +1,9 @@
 package tests;
 
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
-
 
 public class ProjectsTest extends BaseTest {
 
@@ -36,9 +36,10 @@ public class ProjectsTest extends BaseTest {
                 "The project has not been deleted.");
     }
 
-//    @Test(invocationCount = 1)
-//    public void deleteAllProject() {
-//        loginPage.openPage().login(user, password);
-//        projectsPage.openPage().deleteProject(projectPage.getNameOfFirstProject());
-//    }
+    @AfterSuite
+    @Test(invocationCount = 0)
+    public void deleteAllProject() {
+        loginPage.openPage().login(user, password);
+        projectsPage.openPage().deleteProject(projectPage.getNameOfFirstProject());
+    }
 }

@@ -41,6 +41,7 @@ public class SuitesPage extends BasePage {
     private final String TITLE_IN_ADD_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
     private final String DROP_DOWN_TEST_CASE_XPATH = "//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]";
     public static String CLICK_DROPDOWN_XPATH = "//*[contains(@class,'chzn-container-active')]//li[contains(text(),'%s')]";
+    private final String TITLE_TEST_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
 
     @Step("Adding section")
     public SuitesPage addSection(String nameSection) {
@@ -89,13 +90,12 @@ public class SuitesPage extends BasePage {
         log.info("Creating test-case");
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
-        waitTillOpenedTestCasePage();
+        $(TITLE_TEST_PAGE_CSS).shouldBe(visible);
         $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
-        sleep(2000);
+        $(TEST_CASE_TITLE_CSS).shouldHave(Condition.value(testCase.getTitle()));
         $(By.xpath("//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]")).click();
         $(By.xpath("//*[contains(@class,'chzn-container-active')]//li[contains(text(),'Automated')]")).click();
         //new DropDownTestCase("Type").selectForTestCase("Automated");
-
 
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));

@@ -23,6 +23,7 @@ public class MilestonesPage extends BasePage{
     private final String DELETE_BUTTON_CSS = "[data-testid=buttonDelete]";
     private final String DELETE_DIALOG_BUTTON_OK_CSS = "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
     private final String BUTTON_EDIT_CSS = ".content-header .button-edit";
+    private final String TITLE_MILESTONE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
 
 
     @Step("Creation a milestone by name: '{name}'")
@@ -30,8 +31,9 @@ public class MilestonesPage extends BasePage{
         log.info("Creation a milestone by name: '{}'",milestone.getName());
         $(MILESTONE_MENU_BUTTON_CSS).click();
         $(MILESTONE_ADD_BUTTON_CSS).click();
-        $("[data-testid=testCaseContentHeaderTitle]").shouldBe(visible);
+        $(TITLE_MILESTONE_PAGE_CSS).shouldBe(visible);
         $(MILESTONE_NAME_BUTTON_CSS).sendKeys(milestone.getName());
+        $(MILESTONE_NAME_BUTTON_CSS).shouldHave(Condition.value(milestone.getName()));
         $(MILESTONE_REFERENCE_BUTTON_CSS).sendKeys(milestone.getReferences());
         $(MILESTONE_DESCRIPTION_TEXTAREA_CSS).sendKeys(milestone.getDescription());
         $(MILESTONE_BUTTON_OK_CSS).click();

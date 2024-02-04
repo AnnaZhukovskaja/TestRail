@@ -29,7 +29,7 @@ public class ProjectsPage extends BasePage {
     @Step("Opening project by name: '{nameProject}'")
     public ProjectsPage openProject(String nameProject) {
         log.info("Opening project by name: '{}'",nameProject);
-        $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).click();
+        $$(PROJECT_NAME_CSS).findBy(text(nameProject)).click();
         return this;
     }
 
@@ -42,7 +42,7 @@ public class ProjectsPage extends BasePage {
     @Step("Deletion project by name: '{nameProject}'")
     public void deleteProject(String nameProject) {
         log.info("Deletion project by name: '{}'",nameProject);
-        $$(PROJECT_NAME_CSS).findBy(text(nameProject)).find(DELETE_BUTTON_CSS).click();
+        $$(PROJECT_NAMES_CSS).findBy(text(nameProject)).find(DELETE_BUTTON_CSS).click();
         executeJavaScript("document.getElementsByName('deleteCheckbox')[2].click();");
         $(DELETE_DIALOG_BUTTON_OK_CSS).click();
     }
@@ -50,7 +50,7 @@ public class ProjectsPage extends BasePage {
     @Step("Getting name of first project in the page")
     public String getNameOfFirstProject() {
         log.info("Getting name of first project in the page");
-        return $$(PROJECT_NAME_CSS).get(0).getText();
+        return $$(PROJECT_NAMES_CSS).get(0).getText();
     }
 
     @Step("Editing the project")
