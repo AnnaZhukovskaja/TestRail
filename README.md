@@ -5,16 +5,23 @@ Log in.
 4. Verification of registration without specifying Username and Password
 
 Project.
-1. Checking for the creation of the project.
-2. Checking for editing the project.
-3. Checking for project deletions.
+1. Checking for the creation of the project
+2. Checking for editing the project
+3. Checking for project deletions
+4. Checking for all projects deletion
 
 Suit(Section).
-1. Checking for Section creation.
-2. Checking for the editing Section.
-3. Checking for deletion of the Section.
+1. Checking for Section creation
+2. Checking for the editing Section
+3. Checking for deletion of the Section
 
 Test-case.
-1. Checking for Test-case creation.
-2. Checking for editing Test-case.
-3. Checking for deletion of the Test-case.
+1. Checking for Test-case creation
+2. Checking for editing Test-case
+3. Checking for deletion of the Test-case
+4. Checking for details in the created Test-case
+
+Milestone.
+1. Checking for Milestone creation
+2. Checking for the editing Milestone
+3. Checking for deletion of the Milestone

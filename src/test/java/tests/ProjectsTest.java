@@ -37,9 +37,10 @@ public class ProjectsTest extends BaseTest {
     }
 
     @AfterSuite
-    @Test(invocationCount = 0)
+    @Test(description = "Checking for all projects deletion")
     public void deleteAllProject() {
         loginPage.openPage().login(user, password);
-        projectsPage.openPage().deleteProject(projectPage.getNameOfFirstProject());
+        projectsPage.openPage().deleteAllProject(projectPage.getNumberAllProjects());
+        assertEquals(projectPage.getNumberAllProjects(),0,"Error, not all projects have been deleted.");
     }
 }

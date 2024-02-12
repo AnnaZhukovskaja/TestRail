@@ -17,7 +17,6 @@ public class BaseTest {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProjectsPage projectPage;
-    EditProjectPage editProjectPage;
     SuitesPage suitesPage;
     ProjectsPage projectsPage;
     MilestonesPage milestonePage;
@@ -29,7 +28,6 @@ public class BaseTest {
     String nameTestCase;
     String information;
     String description;
-
 
     @BeforeMethod
     public void setup() {
@@ -46,12 +44,10 @@ public class BaseTest {
         nameTestCase = "TestCase" + faker.number().numberBetween(1, 1000);
         description = "The information has been changed";
 
-
         projectsPage = new ProjectsPage();
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
         projectPage = new ProjectsPage();
-        editProjectPage = new EditProjectPage();
         suitesPage = new SuitesPage();
         milestonePage = new MilestonesPage();
 

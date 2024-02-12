@@ -38,14 +38,17 @@ public class SuitesPage extends BasePage {
     private final String DELETE_SECTION_SMALL_ICON_XPATH = "//*[@class='grid-title']//child::a[2]//following-sibling::div";
     private final String CHECKBOX_IN_DIALOG_MESSAGE_DELETE_CSS ="[data-testid=caseFieldsTabDeleteDialogCheckbox]";
     private final String BUTTON_OK_IN_DIALOG_MESSAGE_DELETE_CSS= "[data-testid=caseFieldsTabDeleteDialogButtonOk]";
-    private final String TITLE_IN_ADD_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
-    private final String DROP_DOWN_TEST_CASE_XPATH = "//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]";
-    public static String CLICK_DROPDOWN_XPATH = "//*[contains(@class,'chzn-container-active')]//li[contains(text(),'%s')]";
-    private final String TITLE_TEST_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
+    private final String TITLE_TEST_CASE_PAGE_CSS = "[data-testid=testCaseContentHeaderTitle]";
+    private final String TEST_CASE_CELL_TYPE_CSS = "[data-testid=testCaseViewCellTypeId]";
+    private final String TEST_CASE_CELL_PRIORITY_CSS ="[data-testid=testCaseViewCellPriorityId]";
+    private final String TEST_CASE_CELL_ESTIMATE_CSS = "[data-testid=testCaseViewCellEstimate";
+    private final String TEST_CASE_CELL_REFERENCES_CSS = "[data-testid=testCaseViewCellRefs]";
+    private final String TEST_CASE_CELLS_PRECONDITIONS_STEPS_EXPECTED_RESULT_CSS = ".markdown";
 
-    @Step("Adding section")
+
+    @Step("Adding section by name: '{name}'")
     public SuitesPage addSection(String nameSection) {
-        log.info("Adding section");
+        log.info("Adding section by name: '{}'", nameSection);
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_SECTION_BUTTON_CSS).click();
         $(ADD_NAME_SECTION_CSS).sendKeys(nameSection);
@@ -85,18 +88,18 @@ public class SuitesPage extends BasePage {
         return $(MESSAGE_NOT_TEST_CASES_CSS).getText();
     }
 
-    @Step("Creating test-case")
+    @Step("Creating test-case by name: '{name}'")
     public void addTestCase(TestCase testCase) {
-        log.info("Creating test-case");
+        log.info("Creating test-case by name: '{}'",testCase.getTitle());
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
-        $(TITLE_TEST_PAGE_CSS).shouldBe(visible);
+        $(TITLE_TEST_CASE_PAGE_CSS).shouldBe(visible);
         $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
         $(TEST_CASE_TITLE_CSS).shouldHave(Condition.value(testCase.getTitle()));
-        $(By.xpath("//*[contains(text(),'Type')]/../*/*[contains(@class,'chzn-single')]")).click();
-        $(By.xpath("//*[contains(@class,'chzn-container-active')]//li[contains(text(),'Automated')]")).click();
-        //new DropDownTestCase("Type").selectForTestCase("Automated");
-
+        new DropDownTestCase("Template").selectForTestCase("Test Case (Text)");
+        new DropDownTestCase("Type").selectForTestCase("Automated");
+        new DropDownTestCase("Priority").selectForTestCase("High");
+        new DropDownTestCase("Automation Type").selectForTestCase("None");
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
@@ -116,13 +119,15 @@ public class SuitesPage extends BasePage {
         log.info("Changing the test-case");
         refresh();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
+        $(TEST_CASE_PRECONDITIONS_CSS).clear();
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(information);
+        new DropDownTestCase("Priority").selectForTestCase("Low");
         $(TEST_CASE_SAVE_BUTTON_CSS).click();
     }
 
-    @Step("Deleting the test-case by name")
+    @Step("Deleting the test-case by name: '{name}'")
     public void deleteTestCase(String nameTestCase) {
-        log.info("Deleting the test-case by name");
+        log.info("Deleting the test-case by name: '{}'", nameTestCase);
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $$(NAMES_OF_TEST_CASES_IN_SECTION_CSS).findBy(text(nameTestCase)).click();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
@@ -130,8 +135,16 @@ public class SuitesPage extends BasePage {
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
     }
 
-    public void waitTillOpenedTestCasePage() {
-        $(TITLE_IN_ADD_TEST_CASE_PAGE_CSS).shouldHave(Condition.text("Add Test Case"));
+    @Step("Checking for details in the created test case: '{name}'")
+    public void testCaseShouldHaveCorrectDetails(TestCase testCase) {
+        log.info("Checking for details in the created test case");
+        $(TITLE_TEST_CASE_PAGE_CSS).shouldHave(Condition.text(testCase.getTitle()));
+        $(TEST_CASE_CELL_TYPE_CSS).shouldHave(Condition.text("Automated"));
+        $(TEST_CASE_CELL_PRIORITY_CSS).shouldHave(Condition.text("High"));
+        $(TEST_CASE_CELL_ESTIMATE_CSS).shouldHave(Condition.text("5 minutes"));
+        $(TEST_CASE_CELL_REFERENCES_CSS).shouldHave(Condition.text(testCase.getReferences()));
+        $$(TEST_CASE_CELLS_PRECONDITIONS_STEPS_EXPECTED_RESULT_CSS).findBy(text(testCase.getPreconditions())).shouldBe(visible);
+        $$(TEST_CASE_CELLS_PRECONDITIONS_STEPS_EXPECTED_RESULT_CSS).findBy(text(testCase.getSteps())).shouldBe(visible);
+        $$(TEST_CASE_CELLS_PRECONDITIONS_STEPS_EXPECTED_RESULT_CSS).findBy(text(testCase.getExpectedResult())).shouldBe(visible);
     }
-
 }

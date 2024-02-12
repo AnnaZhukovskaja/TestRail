@@ -18,6 +18,7 @@ public class ProjectsPage extends BasePage {
     private final String SAFE_PROJECT_BUTTON_CSS = "[data-testid=addEditProjectAddButton]";
     private final String ACCESS_MENU_BUTTON_CSS = "#projects-tabs-access";
     private final String DEFAULT_ACCESS_DROP_DOWN_CSS = "[data-testid=addEditProjectAccessTabAccess]";
+    private final String NUMBER_OF_ALL_PROJECTS_CSS = ".text-softer";
 
     @Step("Opening projects page")
     public ProjectsPage openPage() {
@@ -61,6 +62,23 @@ public class ProjectsPage extends BasePage {
         $(DEFECTS_MENU_BUTTON_CSS).click();
         $(ADD_DEFECT_URL_INPUT_CSS).sendKeys(defectUrl);
         $(SAFE_PROJECT_BUTTON_CSS).click();
+    }
+
+    @Step("Getting the number of all projects")
+    public int getNumberAllProjects() {
+        log.info("Getting the number of all projects");
+        return Integer.parseInt($(NUMBER_OF_ALL_PROJECTS_CSS).getText());
+    }
+
+    @Step("Deleting all projects")
+    public void deleteAllProject(int numberOfProjects) {
+        if (numberOfProjects == 0) {
+            log.info("There are no projects.");
+        } else {
+            for (int i = 0; i < numberOfProjects; i++) {
+                deleteProject(getNameOfFirstProject());
+            }
+        }
     }
 }
 

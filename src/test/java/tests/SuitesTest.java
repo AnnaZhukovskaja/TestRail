@@ -86,4 +86,19 @@ public class SuitesTest extends BaseTest{
                 "Successfully flagged the test case as deleted.",
                 "The test-case has not been deleted." );
     }
+
+    @Test(description = "Checking for details in the created test case")
+    public void testCaseShouldBeCreatedWithCorrectDetails() {
+        loginPage.openPage().login(user, password);
+        dashboardPage.createProject(nameProject);
+        dashboardPage.openPage().openProject(nameProject);
+        TestCase testCase = new TestCase("Title " + faker.number().numberBetween(1, 1000),
+                "5m",
+                "-",
+                "You need to create a project.",
+                "Step" + faker.number().numberBetween(1, 1000),
+                "The test case has been added.");
+        suitesPage.addSection(nameSection).addTestCase(testCase);
+        suitesPage.testCaseShouldHaveCorrectDetails(testCase);
+    }
 }
