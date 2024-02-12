@@ -44,8 +44,7 @@ public class MilestonesTest extends BaseTest {
                 name("Sprint " + faker.number().numberBetween(1, 100)).
                 references(faker.address().toString()).
                 description(faker.lorem().toString()).build();
-        milestonePage.createMilestone(milestone);
-        milestonePage.editMilestone(milestone.getName(),information);
+        milestonePage.createMilestone(milestone).editMilestone(milestone.getName(),information);
         assertEquals(milestonePage.getMessageSuccess(),
                 "Successfully updated the milestone.",
                 "Milestone has not been deleted.");

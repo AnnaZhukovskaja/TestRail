@@ -7,7 +7,7 @@ import static org.testng.Assert.assertEquals;
 
 public class ProjectsTest extends BaseTest {
 
-    @Test (description = "Сhecking for the creation of a project")
+    @Test (description = "Checking for the creation of a project")
     public void projectShouldBeCreated() {
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);
@@ -16,7 +16,7 @@ public class ProjectsTest extends BaseTest {
                 "The project has not been created.");
     }
 
-    @Test (description = "Сhecking for changes to the project")
+    @Test (description = "Checking for changes to the project")
     public void projectShouldBeEdited() {
         loginPage.openPage().login(user, password);
         dashboardPage.createProject(nameProject);

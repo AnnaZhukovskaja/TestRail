@@ -2,15 +2,14 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 import pages.*;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static org.testng.Assert.assertEquals;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -58,5 +57,11 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void close() {
         closeWebDriver();
+    }
+
+    @AfterSuite
+    public void deleteAllProject() {
+        loginPage.openPage().login(user, password);
+        projectsPage.openPage().deleteAllProject(projectPage.getNumberAllProjects());
     }
 }

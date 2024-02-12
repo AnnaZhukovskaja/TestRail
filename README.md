@@ -8,7 +8,6 @@ Project.
 1. Checking for the creation of the project
 2. Checking for editing the project
 3. Checking for project deletions
-4. Checking for all projects deletion
 
 Suit(Section).
 1. Checking for Section creation
