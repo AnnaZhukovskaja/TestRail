@@ -24,3 +24,8 @@ Milestone.
 1. Checking for Milestone creation
 2. Checking for the editing Milestone
 3. Checking for deletion of the Milestone
+
+Test Run.
+1. Checking for Test Run creation
+2. Checking for the editing Test Run
+3. Checking for deletion of the Test Run

@@ -5,7 +5,7 @@ import dto.TestCase;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import wrappers.DropDownTestCase;
+import wrappers.DropDown;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -46,7 +46,7 @@ public class SuitesPage extends BasePage {
     private final String TEST_CASE_CELLS_PRECONDITIONS_STEPS_EXPECTED_RESULT_CSS = ".markdown";
 
 
-    @Step("Adding section by name: '{name}'")
+    @Step("Adding section by name: '{nameSection}'")
     public SuitesPage addSection(String nameSection) {
         log.info("Adding section by name: '{}'", nameSection);
         $(TEST_CASES_MENU_BUTTON_CSS).click();
@@ -57,11 +57,12 @@ public class SuitesPage extends BasePage {
     }
 
     @Step("Changing name of section")
-    public void editSection(String newName) {
+    public SuitesPage editSection(String newName) {
         log.info("Changing name of section");
         $(EDIT_SMALL_BUTTON_CSS).click();
         $(EDIT_SECTION_NAME_INPUT_CSS).sendKeys(newName);
         $(SAVE_EDITED_SECTION_BUTTON_CSS).click();
+        return this;
     }
 
     @Step("Searching name of section")
@@ -88,24 +89,25 @@ public class SuitesPage extends BasePage {
         return $(MESSAGE_NOT_TEST_CASES_CSS).getText();
     }
 
-    @Step("Creating test-case by name: '{name}'")
-    public void addTestCase(TestCase testCase) {
+    @Step("Creating test-case by name: '{testCase.title}'")
+    public SuitesPage addTestCase(TestCase testCase) {
         log.info("Creating test-case by name: '{}'",testCase.getTitle());
         $(TEST_CASES_MENU_BUTTON_CSS).click();
         $(ADD_TEST_CASE_BUTTON_CSS).click();
         $(TITLE_TEST_CASE_PAGE_CSS).shouldBe(visible);
         $(TEST_CASE_TITLE_CSS).sendKeys(testCase.getTitle());
         $(TEST_CASE_TITLE_CSS).shouldHave(Condition.value(testCase.getTitle()));
-        new DropDownTestCase("Template").selectForTestCase("Test Case (Text)");
-        new DropDownTestCase("Type").selectForTestCase("Automated");
-        new DropDownTestCase("Priority").selectForTestCase("High");
-        new DropDownTestCase("Automation Type").selectForTestCase("None");
+        new DropDown("Template").select("Test Case (Text)");
+        new DropDown("Type").select("Automated");
+        new DropDown("Priority").select("High");
+        new DropDown("Automation Type").select("None");
         $(TEST_CASE_ESTIMATE_CSS).sendKeys(testCase.getEstimate());
         $(TEST_CASE_REFERENCES_CSS).sendKeys((testCase.getReferences()));
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(testCase.getPreconditions());
         $(TEST_CASE_STEP_CSS).sendKeys(testCase.getSteps());
         $(TEST_CASE_EXPECTED_RESULT_CSS).sendKeys(testCase.getExpectedResult());
         $(TEST_CASE_SAVE_BUTTON_CSS).click();
+        return this;
     }
 
     @Step("Getting а message about a successful result")
@@ -114,18 +116,18 @@ public class SuitesPage extends BasePage {
         return $(MESSAGE_SUCCESSFUL_RESULT_CSS).getText();
     }
 
-    @Step("Changing the test-case")
+    @Step("Edition the test-case")
     public void editTestCase(String information) {
-        log.info("Changing the test-case");
+        log.info("Editing the test-case");
         refresh();
         $(TEST_CASE_EDIT_BUTTON_CSS).click();
         $(TEST_CASE_PRECONDITIONS_CSS).clear();
         $(TEST_CASE_PRECONDITIONS_CSS).sendKeys(information);
-        new DropDownTestCase("Priority").selectForTestCase("Low");
+        new DropDown("Priority").select("Low");
         $(TEST_CASE_SAVE_BUTTON_CSS).click();
     }
 
-    @Step("Deleting the test-case by name: '{name}'")
+    @Step("Deleting the test-case by name: '{nameTestCase}'")
     public void deleteTestCase(String nameTestCase) {
         log.info("Deleting the test-case by name: '{}'", nameTestCase);
         $(TEST_CASES_MENU_BUTTON_CSS).click();
@@ -135,9 +137,9 @@ public class SuitesPage extends BasePage {
         executeJavaScript("document.getElementsByClassName('dialog-action-default')[15].click();");
     }
 
-    @Step("Checking for details in the created test case: '{name}'")
+    @Step("Checking for details in the created test case: '{testCase.title}'")
     public void testCaseShouldHaveCorrectDetails(TestCase testCase) {
-        log.info("Checking for details in the created test case");
+        log.info("Checking for details in the created test case: '{}'",testCase.getTitle());
         $(TITLE_TEST_CASE_PAGE_CSS).shouldHave(Condition.text(testCase.getTitle()));
         $(TEST_CASE_CELL_TYPE_CSS).shouldHave(Condition.text("Automated"));
         $(TEST_CASE_CELL_PRIORITY_CSS).shouldHave(Condition.text("High"));

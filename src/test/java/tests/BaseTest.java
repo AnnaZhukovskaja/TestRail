@@ -9,7 +9,6 @@ import utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.testng.Assert.assertEquals;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -19,6 +18,7 @@ public class BaseTest {
     SuitesPage suitesPage;
     ProjectsPage projectsPage;
     MilestonesPage milestonePage;
+    TestRunsPage testRunsPage;
     String user;
     String password;
     Faker faker;
@@ -49,6 +49,7 @@ public class BaseTest {
         projectPage = new ProjectsPage();
         suitesPage = new SuitesPage();
         milestonePage = new MilestonesPage();
+        testRunsPage = new TestRunsPage();
 
         user = System.getProperty("user", PropertyReader.getProperty("tr.user"));
         password = System.getProperty("password", PropertyReader.getProperty("tr.password"));

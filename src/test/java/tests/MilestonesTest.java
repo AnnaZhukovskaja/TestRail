@@ -10,41 +10,62 @@ public class MilestonesTest extends BaseTest {
 
     @Test(description = "Verification of creation a milestone")
     public void milestoneShouldBeCreated() {
-        loginPage.openPage().login(user, password);
-        dashboardPage.createProject(nameProject);
-        dashboardPage.openPage().openProject(nameProject);
+        loginPage.
+                openPage().
+                login(user, password);
+        dashboardPage.
+                createProject(nameProject);
+        dashboardPage.
+                openPage().
+                openProject(nameProject);
         Milestone milestone = Milestone.builder().
                 name("Sprint " + faker.number().numberBetween(1, 100)).
                 references(faker.address().toString()).
                 description(faker.lorem().toString()).build();
-        milestonePage.createMilestone(milestone).sectionShouldExist(milestone.getName());
+        milestonePage.
+                createMilestone(milestone).
+                sectionShouldExist(milestone.getName());
     }
 
-    @Test(description = "Verification of creation a milestone")
+    @Test(description = "Verification of deletion a milestone")
     public void milestoneShouldBeDeleted() {
-        loginPage.openPage().login(user, password);
-        dashboardPage.createProject(nameProject);
-        dashboardPage.openPage().openProject(nameProject);
+        loginPage.
+                openPage().
+                login(user, password);
+        dashboardPage.
+                createProject(nameProject);
+        dashboardPage.
+                openPage().
+                openProject(nameProject);
         Milestone milestone = Milestone.builder().
                 name("Sprint " + faker.number().numberBetween(1, 100)).
                 references(faker.address().toString()).
                 description(faker.lorem().toString()).build();
-        milestonePage.createMilestone(milestone).deleteMilestone(milestone.getName());
+        milestonePage.
+                createMilestone(milestone).
+                deleteMilestone(milestone.getName());
         assertEquals(milestonePage.getMessageSuccess(),
                 "Successfully deleted the milestone.",
                 "Milestone has not been deleted.");
     }
 
-    @Test(description = "Verification of creation a milestone")
+    @Test(description = "Verification of edition a milestone")
     public void milestoneShouldBeEdited() {
-        loginPage.openPage().login(user, password);
-        dashboardPage.createProject(nameProject);
-        dashboardPage.openPage().openProject(nameProject);
+        loginPage.
+                openPage().
+                login(user, password);
+        dashboardPage.
+                createProject(nameProject);
+        dashboardPage.
+                openPage().
+                openProject(nameProject);
         Milestone milestone = Milestone.builder().
                 name("Sprint " + faker.number().numberBetween(1, 100)).
                 references(faker.address().toString()).
                 description(faker.lorem().toString()).build();
-        milestonePage.createMilestone(milestone).editMilestone(milestone.getName(),information);
+        milestonePage.
+                createMilestone(milestone).
+                editMilestone(milestone.getName(),information);
         assertEquals(milestonePage.getMessageSuccess(),
                 "Successfully updated the milestone.",
                 "Milestone has not been deleted.");

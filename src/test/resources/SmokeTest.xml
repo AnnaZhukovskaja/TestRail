@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="2" name="TestRail Smoke Test" parallel="tests">
+<suite thread-count="3" name="TestRail Smoke Test" parallel="tests">
 
         <listeners>
             <listener class-name="tests.TestListener"/>
@@ -11,12 +11,17 @@
         <classes>
             <class name="tests.LoginTest"/>
             <class name="tests.ProjectsTest"/>
-            <class name="tests.MilestonesTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="Thread #2">
         <classes>
             <class name="tests.SuitesTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="Thread #3">
+        <classes>
+            <class name="tests.MilestonesTest"/>
+            <class name="tests.TestRunsTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>
