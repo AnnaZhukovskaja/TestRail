@@ -83,7 +83,6 @@ public class MilestonesPage extends BasePage{
     public String getTodayDate() {
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String todayAsString = dateFormat.format(today);
         return todayAsString;

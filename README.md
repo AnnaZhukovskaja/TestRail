@@ -3,6 +3,7 @@ Log in.
 2. Verification of registration without specifying Username
 3. Verification of registration without specifying a Password
 4. Verification of registration without specifying Username and Password
+5. Checking for a successful logout
 
 Project.
 1. Checking for the creation of the project
